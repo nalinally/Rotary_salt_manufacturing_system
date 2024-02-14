@@ -17,7 +17,7 @@
 
 海水から塩を作るときには、次のような工程をふみます。
 
-![製塩工程](images\製塩工程.png)
+![製塩工程](images/製塩工程.png)
 
 海水から塩を取り出すためには、海水の水分をどうにかして蒸発させる必要があります。外国だと広い土地がありがちなので海水を天日干しにできたりしますが、多湿で広い土地もない日本では、海水を釜で煮詰めて塩を取り出すやり方が主流です。
 
@@ -29,7 +29,8 @@
 
 現在日本で主流な海水濃縮手法は、イオン交換膜法というもので、化学的なフィルタを通すことで「水分を蒸発させる」のではなく「塩だけを取り出す」ということで海水を濃くすることができるんだそう。
 
-https://www.shiojigyo.com/siohyakka/made/history.html
+参考
+[日本の塩づくりの歴史 | 塩のつくり方 | 塩百科 | 公益財団法人塩事業センター](https://www.shiojigyo.com/siohyakka/made/history.html)
 
 ただ、沖縄県うるま市の浜比嘉島にある高江洲製塩所というところでは、一昔前の**流下式塩田**という手法を使って海水濃縮を行っています。
 
@@ -53,7 +54,8 @@ https://www.shiojigyo.com/siohyakka/made/history.html
 
 この問題が解決すれば、**塩の安定生産**が可能となり、ネットなどでの受注生産をすることができるようになります。
 
-https://www.hakatanoshio.co.jp/salt/saredoshio/
+参考
+[「されど塩」が生まれるまで - 伯方塩業株式会社](https://www.hakatanoshio.co.jp/salt/saredoshio/)
 
 # 研究概要
 
@@ -80,7 +82,8 @@ $c_1$ : 水面付近の飽和蒸気量 [kg/m^3]　　$c_2$ : 空気の蒸気量 
 
 この４つが重要になります。
 
-https://kougakukeisan.com/2021/09/25/水の蒸発速度/
+参考
+[水の蒸発速度  |  工学計算.com](https://kougakukeisan.com/2021/09/25/水の蒸発速度/)
 
 これら４つのパラメータを効果的に上げるために、本研究では、回転する中空の円筒（ロータ）を用いた新しい海水濃縮手法を提案します。
 
@@ -126,27 +129,80 @@ https://kougakukeisan.com/2021/09/25/水の蒸発速度/
 
 １号機。底の深い箱を使ったので、空気の循環がうまくいかず、全然水分が蒸発しませんでした。センサは画像の場所ではなく、装置の隣に設置しました。
 
-![2号機筐体.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/599963/2321fbf3-2641-ad61-fb5b-f3ff66a8fb32.jpeg)
+![2号機筐体.jpg](images/2号機筐体.jpg)
 
-２号機。ロータの回転機構をそのまま、底の浅い箱に付け替えています。これによって、扇風機を使えばうまく空気を循環できるので、水分が蒸発するようになりました。
+２号機。ロータの回転機構をそのまま、底の浅い箱に付け替えています。これによって、扇風機を使えばうまく空気を循環できるので、水分が蒸発するようになりました。また、１号機では4枚の透明な円盤によって円筒の構造を形作っていましたが、これを両端の2枚にすることによって、ロータの形状を変えやすくしました。
 
 ### センサモジュールの開発
 Xiao esp32s3というモジュールを使って、センサの値を読み、Ambientというサービスを使ってクラウドにデータを蓄積・可視化するシステムを開発しました。
 
-https://ambidata.io/
+[IoTデーター可視化サービス Ambient](https://ambidata.io/)
 
+使用したセンサとマイコンは以下です。
 
+マイコン：
+
+[Xiao ESP32S3](https://www.switch-science.com/products/8968)
+
+センサ：
+
+[BME280](https://akizukidenshi.com/catalog/g/g109421/)
+
+[DS18B20](https://www.amazon.co.jp/%E6%B8%A9%E5%BA%A6%E3%82%BB%E3%83%B3%E3%82%B5%E3%83%BC-%E3%82%B5%E3%83%BC%E3%83%A2%E3%82%B9%E3%82%BF%E3%83%83%E3%83%88-%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B9%E3%83%87%E3%83%A5%E3%83%BC%E3%82%B5%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB-DS18B20-%E3%83%97%E3%83%AD%E3%83%BC%E3%83%96%E4%BB%98%E3%81%8D/dp/B07B2VVQ4K/ref=sr_1_14?crid=S0A72MTEM87Z&keywords=ds18b20&qid=1707878258&s=industrial&sprefix=DS%2Cindustrial%2C525&sr=1-14-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&psc=1)
+
+BME280は、J1、J2、J3をはんだで繋げて使用しました。
+
+実装したコードは以下です。
+
+[ambient_water_temp](codes\ambient_water_temp)
+
+接続図は以下です。（手書きですみません...）
+
+![センサモジュール_接続図](images/センサモジュール_接続図.jpg)
+
+参考
+[Arduino+DS18B20で温度測定してみた #Arduino - Qiita](https://qiita.com/hnw/items/315fad0d4b60ada10d00)
+
+### 制御モジュールの開発
+Xiao esp32s3というモジュールを使って、センサの値を読み、Ambientというサービスを使ってクラウドにデータを蓄積・可視化するシステムを開発しました。
+
+[IoTデーター可視化サービス Ambient](https://ambidata.io/)
+
+使用したセンサとマイコンは以下です。
+
+マイコン：
+
+[Xiao ESP32S3](https://www.switch-science.com/products/8968)
+
+センサ：
+
+[BME280](https://akizukidenshi.com/catalog/g/g109421/)
+
+[DS18B20](https://www.amazon.co.jp/%E6%B8%A9%E5%BA%A6%E3%82%BB%E3%83%B3%E3%82%B5%E3%83%BC-%E3%82%B5%E3%83%BC%E3%83%A2%E3%82%B9%E3%82%BF%E3%83%83%E3%83%88-%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B9%E3%83%87%E3%83%A5%E3%83%BC%E3%82%B5%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB-DS18B20-%E3%83%97%E3%83%AD%E3%83%BC%E3%83%96%E4%BB%98%E3%81%8D/dp/B07B2VVQ4K/ref=sr_1_14?crid=S0A72MTEM87Z&keywords=ds18b20&qid=1707878258&s=industrial&sprefix=DS%2Cindustrial%2C525&sr=1-14-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&psc=1)
+
+BME280は、J1、J2、J3をはんだで繋げて使用しました。
+
+実装したコードは以下です。
+
+[ambient_water_temp](codes\ambient_water_temp)
+
+接続図は以下です。（手書きですみません...）
+
+![センサモジュール_接続図](images/センサモジュール_接続図.jpg)
+
+参考
+[Arduino+DS18B20で温度測定してみた #Arduino - Qiita](https://qiita.com/hnw/items/315fad0d4b60ada10d00)
 
 # 現状
 
 最終的なゴールはこんな感じですが、
 
-![最終的なゴール](https://github.com/KamechanLab/-/assets/61955594/556ba889-68ac-4be1-980d-7513bd2b8e72)
+![最終的なゴール](images/最終的なゴール.png)
 
 
 現状はこんな感じです。
 
-![現状](https://github.com/KamechanLab/-/assets/61955594/b3be5052-40ec-4574-8864-0ba4c7c5c240)
+![現状](images/現状.png)
 
 
 # 動かし方
