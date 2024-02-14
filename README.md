@@ -164,34 +164,31 @@ BME280は、J1、J2、J3をはんだで繋げて使用しました。
 [Arduino+DS18B20で温度測定してみた #Arduino - Qiita](https://qiita.com/hnw/items/315fad0d4b60ada10d00)
 
 ### 制御モジュールの開発
-Xiao esp32s3というモジュールを使って、センサの値を読み、Ambientというサービスを使ってクラウドにデータを蓄積・可視化するシステムを開発しました。
+MQTT通信という通信方法を使って、遠隔でXiao ESP32S3に指示を出し、モーターを制御するシステムを開発しました。
 
-[IoTデーター可視化サービス Ambient](https://ambidata.io/)
-
-使用したセンサとマイコンは以下です。
+使用した回路とマイコンは以下です。
 
 マイコン：
 
 [Xiao ESP32S3](https://www.switch-science.com/products/8968)
 
-センサ：
+回路：
 
-[BME280](https://akizukidenshi.com/catalog/g/g109421/)
-
-[DS18B20](https://www.amazon.co.jp/%E6%B8%A9%E5%BA%A6%E3%82%BB%E3%83%B3%E3%82%B5%E3%83%BC-%E3%82%B5%E3%83%BC%E3%83%A2%E3%82%B9%E3%82%BF%E3%83%83%E3%83%88-%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B9%E3%83%87%E3%83%A5%E3%83%BC%E3%82%B5%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB-DS18B20-%E3%83%97%E3%83%AD%E3%83%BC%E3%83%96%E4%BB%98%E3%81%8D/dp/B07B2VVQ4K/ref=sr_1_14?crid=S0A72MTEM87Z&keywords=ds18b20&qid=1707878258&s=industrial&sprefix=DS%2Cindustrial%2C525&sr=1-14-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&psc=1)
-
-BME280は、J1、J2、J3をはんだで繋げて使用しました。
+[モータードライバ TB6643KQ](https://akizukidenshi.com/catalog/g/g109421/)
 
 実装したコードは以下です。
 
-[ambient_water_temp](codes\ambient_water_temp)
+[xiao_mqtt_motor](codes/xiao_mqtt_motor/)
 
-接続図は以下です。（手書きですみません...）
+接続図は以下です。（また手書きですみません...）
 
-![センサモジュール_接続図](images/センサモジュール_接続図.jpg)
+![制御モジュール_接続図](images/制御モジュール_接続図.jpg)
 
 参考
-[Arduino+DS18B20で温度測定してみた #Arduino - Qiita](https://qiita.com/hnw/items/315fad0d4b60ada10d00)
+
+[ESP32でMQTT通信（XIAO ESP32S3、Node-RED、HIDキーボード） - 趣味的ロボット研究所](https://404background.com/program/esp32-mqtt/)
+
+[TB6643KQ データシート](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.marutsu.co.jp/contents/shop/marutsu/datasheet/TB6643KQ_datasheet_ja_20110621.pdf)
 
 # 現状
 
